@@ -24,12 +24,12 @@
       const dark = opts && opts.dark;
       s.background = { color: dark ? NAVY : WHITE };
       if (opts && opts.title) {
-        s.addShape(pptx.shapes.RECTANGLE, { x: 0.5, y: 0.45, w: 0.5, h: 0.05, fill: { color: dark ? CYAN : TEAL }, line: { color: dark ? CYAN : TEAL } });
-        s.addText(opts.title, { x: 0.5, y: 0.55, w: 9, h: 0.7, fontFace: FONT, fontSize: 22, bold: true, color: dark ? WHITE : NAVY, valign: 'top' });
-        if (opts.lede) s.addText(opts.lede, { x: 0.5, y: 1.2, w: 8.6, h: 0.5, fontFace: FONT, fontSize: 12, color: dark ? 'CCE6EE' : INK2, valign: 'top' });
+        s.addShape(pptx.shapes.RECTANGLE, { x: 0.5, y: 0.38, w: 0.5, h: 0.05, fill: { color: dark ? CYAN : TEAL }, line: { color: dark ? CYAN : TEAL } });
+        s.addText(opts.title, { x: 0.5, y: 0.47, w: 9, h: 0.8, fontFace: FONT, fontSize: 19, bold: true, color: dark ? WHITE : NAVY, valign: 'top' });
+        if (opts.lede) s.addText(opts.lede, { x: 0.5, y: 1.3, w: 8.8, h: 0.45, fontFace: FONT, fontSize: 10.5, color: dark ? 'CCE6EE' : INK2, valign: 'top' });
       }
-      s.addText(`${count}`, { x: 9.2, y: 5.2, w: 0.5, h: 0.3, fontFace: FONT, fontSize: 9, color: dark ? '80A0AD' : MUTED, align: 'right' });
-      s.addText('TOTVS · Plataforma Ascenty · Uso de IA', { x: 0.5, y: 5.2, w: 5, h: 0.3, fontFace: FONT, fontSize: 9, color: dark ? '80A0AD' : MUTED });
+      s.addText(`${count}`, { x: 9.2, y: 5.25, w: 0.5, h: 0.3, fontFace: FONT, fontSize: 9, color: dark ? '80A0AD' : MUTED, align: 'right' });
+      if (!(opts && opts.cover)) s.addText('TOTVS · Plataforma Ascenty · Uso de IA', { x: 0.5, y: 5.25, w: 5, h: 0.3, fontFace: FONT, fontSize: 9, color: dark ? '80A0AD' : MUTED });
       return s;
     }
     const bullets = (s, items, o) => s.addText(items.map((t) => ({ text: t, options: { bullet: { indent: 12 }, breakLine: true } })),
@@ -43,7 +43,7 @@
 
     // 1. Capa
     {
-      const s = base({ dark: true });
+      const s = base({ dark: true, cover: true });
       s.addText('TOTVS', { x: 0.5, y: 0.4, w: 3, h: 0.5, fontFace: FONT, fontSize: 18, bold: true, color: WHITE });
       s.addText('Relatório para a diretoria', { x: 0.5, y: 1.1, w: 6, h: 0.4, fontFace: FONT, fontSize: 12, color: CYAN });
       s.addText([{ text: 'Inteligência artificial como par de engenharia na ', options: { bold: false } }, { text: 'plataforma Ascenty', options: { bold: true } }],
@@ -51,7 +51,7 @@
       s.addText('Comparativo de trabalho com IA e sem IA · março a setembro de 2026', { x: 0.5, y: 3.1, w: 8.5, h: 0.5, fontFace: FONT, fontSize: 14, color: 'CCE6EE' });
       s.addChart(pptx.charts.BAR, [{ name: 'Registros', labels: D.months.map((m) => M.MONTH_PT[m.month]), values: D.months.map((m) => m.obsAsc) }],
         { x: 0.5, y: 3.6, w: 9, h: 1.5, barDir: 'col', chartColors: [CYAN], valAxisHidden: true, valGridLine: { style: 'none' }, catAxisLabelColor: 'CCE6EE', catAxisLabelFontSize: 9, catAxisLabelFontFace: FONT, showValue: false, barGapWidthPct: 30, catAxisLineShow: false, valAxisLineShow: false });
-      s.addText(`César Oliveira · cesar.oliveira@totvs.com.br · ${txt('gen-date') || D.generatedAt}`, { x: 0.5, y: 5.2, w: 8, h: 0.3, fontFace: FONT, fontSize: 9, color: '80A0AD' });
+      s.addText(`César Oliveira · Engenharia de Plataforma · ${txt('gen-date') || D.generatedAt}`, { x: 0.5, y: 5.25, w: 8, h: 0.3, fontFace: FONT, fontSize: 9, color: '80A0AD' });
     }
     // 2. Sumário executivo
     {
@@ -111,13 +111,13 @@
       s.addChart(pptx.charts.BAR, [
         { name: 'Com IA (medido)', labels: central.rows.map((r) => r.label), values: central.rows.map((r) => +r.withAI.toFixed(1)) },
         { name: 'Sem IA (estimado, cenário central)', labels: central.rows.map((r) => r.label), values: central.rows.map((r) => +r.withoutAI.toFixed(1)) }
-      ], Object.assign({ x: 0.5, y: 1.75, w: 5.7, h: 3.4, barDir: 'bar', chartColors: [TEAL, BASE], catAxisOrientation: 'maxMin', showLegend: true, legendPos: 'b', legendFontFace: FONT, legendFontSize: 9, legendColor: INK2, dataLabelFormatCode: '0.0', barGapWidthPct: 40 }, chartBase));
+      ], Object.assign({ x: 0.5, y: 1.85, w: 5.7, h: 3.3, barDir: 'bar', chartColors: [TEAL, BASE], catAxisOrientation: 'maxMin', showLegend: true, legendPos: 'b', legendFontFace: FONT, legendFontSize: 9, legendColor: INK2, dataLabelFormatCode: '0.0', barGapWidthPct: 40 }, chartBase));
       const rows = [[{ text: 'Cenário', options: { bold: true, color: NAVY, fill: { color: PLANE } } }, { text: 'Sem IA', options: { bold: true, color: NAVY, fill: { color: PLANE } } }, { text: 'Diferença', options: { bold: true, color: NAVY, fill: { color: PLANE } } }, { text: 'Fator', options: { bold: true, color: NAVY, fill: { color: PLANE } } }],
         ['Conservador', f1(cons.withoutAI) + ' h', f1(cons.saved) + ' h (' + f1(cons.saved / 8) + ' dias)', f1(cons.factor) + '×'],
         ['Central', f1(central.withoutAI) + ' h', f1(central.saved) + ' h (' + f1(central.saved / 8) + ' dias)', f1(central.factor) + '×']];
-      s.addTable(rows, { x: 6.4, y: 1.8, w: 3.2, colW: [0.9, 0.7, 1.0, 0.6], fontFace: FONT, fontSize: 9, color: INK2, border: { type: 'solid', color: LINE, pt: 0.5 }, rowH: 0.35 });
+      s.addTable(rows, { x: 6.4, y: 1.85, w: 3.2, colW: [1.0, 0.65, 1.0, 0.55], fontFace: FONT, fontSize: 8, color: INK2, border: { type: 'solid', color: LINE, pt: 0.5 }, rowH: 0.35, valign: 'middle' });
       s.addText('Fatores por tipo (cons./central): descoberta 2,0/3,0 · correção 1,5/2,0 · funcionalidade e refatoração 1,4/1,8 · alteração 1,3/1,6 · decisão 1,2/1,5. Referências: Peng et al. 2023 (55,8% mais rápido), McKinsey 2023 (20 a 45%), Paradis et al./Google 2024 (~21%), METR 2025 (alerta: 19% mais lento em cenário específico).',
-        { x: 6.4, y: 3.05, w: 3.2, h: 2.1, fontFace: FONT, fontSize: 8.5, color: MUTED, valign: 'top' });
+        { x: 6.4, y: 3.1, w: 3.2, h: 2.0, fontFace: FONT, fontSize: 8, color: MUTED, valign: 'top' });
     }
     // 8. Casos
     {
@@ -125,11 +125,11 @@
       const cases = window.REPORT_CASES || [];
       const w = 2.95, gapx = 0.1;
       cases.slice(0, 6).forEach((c, i) => {
-        const col = i % 3, row = Math.floor(i / 3), x = 0.5 + col * (w + gapx), y = 1.75 + row * 1.72;
+        const col = i % 3, row = Math.floor(i / 3), x = 0.5 + col * (w + gapx), y = 1.8 + row * 1.7;
         s.addShape(pptx.shapes.RECTANGLE, { x, y, w, h: 1.62, fill: { color: PLANE }, line: { color: PLANE } });
-        s.addText(c.title, { x: x + 0.12, y: y + 0.06, w: w - 0.24, h: 0.3, fontFace: FONT, fontSize: 10.5, bold: true, color: NAVY });
-        s.addText(c.items.slice(0, 3).map((t) => ({ text: t, options: { bullet: { indent: 8 }, breakLine: true } })), { x: x + 0.12, y: y + 0.36, w: w - 0.24, h: 1.0, fontFace: FONT, fontSize: 8, color: INK2, valign: 'top' });
-        s.addText(c.facts, { x: x + 0.12, y: y + 1.32, w: w - 0.24, h: 0.25, fontFace: FONT, fontSize: 8, color: TEALD, bold: true });
+        s.addText(c.title, { x: x + 0.12, y: y + 0.05, w: w - 0.24, h: 0.3, fontFace: FONT, fontSize: 9.5, bold: true, color: NAVY, valign: 'top' });
+        s.addText(c.items.slice(0, 2).map((t) => ({ text: t, options: { bullet: { indent: 8 }, breakLine: true } })), { x: x + 0.12, y: y + 0.4, w: w - 0.24, h: 0.9, fontFace: FONT, fontSize: 7.5, color: INK2, valign: 'top', paraSpaceAfter: 2 });
+        s.addText(c.facts, { x: x + 0.12, y: y + 1.33, w: w - 0.24, h: 0.25, fontFace: FONT, fontSize: 7.5, color: TEALD, bold: true, valign: 'bottom' });
       });
     }
     // 9. Qualidade
@@ -137,7 +137,7 @@
       const s = base({ title: 'Ganho não é só velocidade: testes, documentação e segurança entraram no fluxo', lede: 'Comparação qualitativa entre o processo tradicional e o assistido, com evidências das sessões.' });
       const H = (t) => ({ text: t, options: { bold: true, color: NAVY, fill: { color: PLANE } } });
       const rows = [[H('Dimensão'), H('Sem IA'), H('Com IA (observado)')]].concat((window.REPORT_QUAL || []).map((r) => [{ text: r[0], options: { bold: true, color: NAVY } }, r[1], { text: r[2], options: { fill: { color: 'E6F6F9' } } }]));
-      s.addTable(rows, { x: 0.5, y: 1.75, w: 9, colW: [1.8, 3.4, 3.8], fontFace: FONT, fontSize: 8.5, color: INK2, border: { type: 'solid', color: LINE, pt: 0.5 }, valign: 'top' });
+      s.addTable(rows, { x: 0.5, y: 1.85, w: 9, colW: [1.8, 3.4, 3.8], fontFace: FONT, fontSize: 8, color: INK2, border: { type: 'solid', color: LINE, pt: 0.5 }, valign: 'top' });
     }
     // 10. ROI
     {
