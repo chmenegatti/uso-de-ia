@@ -62,7 +62,7 @@
       kpi(s, 7.4, 1.8, 2.2, n(T.filesModAsc), 'arquivos criados ou alterados');
       bullets(s, [
         `Estimativa central: o mesmo trabalho sem IA levaria ${f1(central.withoutAI)} h. Diferença de ${f1(central.saved)} h (${f1(central.saved / 8)} dias úteis), fator ${f1(central.factor)}×. Cenário conservador: ${f1(cons.saved)} h.`,
-        `${txt('k-disc') || '35%'} do trabalho assistido foi leitura e descoberta de código, a fase mais cara para um engenheiro em uma base de ~200 microsserviços.`,
+        `${Math.round(100 * D.types.find((t) => t.type === 'discovery').count / T.obsAsc)}% do trabalho assistido foi leitura e descoberta de código, a fase mais cara para um engenheiro em uma base de ~200 microsserviços.`,
         `Além de velocidade: ${n(T.testObs)} registros ligados a testes, ${n(T.docsObs)} a documentação/planejamento e ${n(T.securityObs)} a segurança.`,
         'Recomendação: piloto estruturado com 3 a 5 engenheiros por 90 dias, baseline medido e guardrails de revisão humana.'
       ], { x: 0.5, y: 3.1, w: 9, h: 2 });
@@ -72,7 +72,7 @@
       const s = base({ title: 'Como medimos: dados reais das sessões, sem autoavaliação', lede: 'Fonte: base claude-mem (viewer local). Cada ação relevante da IA vira um registro com tipo, arquivos e horário.' });
       bullets(s, [
         `Base completa: ${n(T.sessions)} sessões, ${n(T.prompts)} pedidos, ${n(T.obs)} registros entre ${T.firstAsc.split('-').reverse().join('/')} e ${T.lastAsc.split('-').reverse().join('/')}.`,
-        `Escopo deste relatório: ${n(T.obsAsc)} registros (${txt('k-share') || '52%'}) em ${n(T.projectsAsc)} projetos Ascenty/TOTVS. Projetos pessoais e de estudo foram excluídos.`,
+        `Escopo deste relatório: ${n(T.obsAsc)} registros (${Math.round(100 * T.obsAsc / T.obs)}% da base) em ${n(T.projectsAsc)} projetos Ascenty/TOTVS. Projetos pessoais e de estudo foram excluídos.`,
         'Horas ativas: soma dos intervalos entre registros consecutivos, com teto de 30 minutos de inatividade (método usado em análises de histórico git).',
         'Horas sem IA: horas medidas × fator por tipo de trabalho, calibrado em estudos públicos (GitHub/Microsoft 2023, McKinsey 2023, Google 2024, METR 2025).',
         'Tipos de trabalho: descoberta, funcionalidade, alteração, correção, refatoração e decisão, classificados automaticamente na captura.'
