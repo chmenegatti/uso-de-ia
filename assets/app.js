@@ -31,7 +31,7 @@
     bugfix:    { conservative: 1.5, central: 2.0 },
     refactor:  { conservative: 1.4, central: 1.8 }
   };
-  const PERIOD_MONTHS = 6;
+  const PERIOD_MONTHS = D.totals.periodMonths || 3.3;
 
   const C = { teal: '#0092AB', tealDeep: '#007285', violet: '#A44DFF', amber: '#C98500', cyan: '#00DBFF', base: '#B7C0C7', navy: '#002233' };
 
@@ -61,6 +61,7 @@
     testObs: n(T.testObs), securityObs: n(T.securityObs), docsObs: n(T.docsObs), summariesAsc: n(T.summariesAsc),
     bugfixAsc: n(D.types.find((t) => t.type === 'bugfix').count),
     discoveryShare: pct(D.types.find((t) => t.type === 'discovery').count / T.obsAsc),
+    periodDays: n(T.periodDays), periodMonthsTxt: fmt1.format(T.periodMonths),
     generatedAt: new Date(D.generatedAt + 'T12:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
   };
   const central = model('central'), cons = model('conservative');
@@ -268,16 +269,29 @@
   }
   document.querySelectorAll('.scenario button').forEach((b) => b.addEventListener('click', () => { scenario = b.dataset.scenario; renderCompare(); }));
 
-  /* ---------- ROI ---------- */
-  function renderRoi() {
-    const rate = +document.getElementById('roi-rate').value, factor = +document.getElementById('roi-factor').value, tool = +document.getElementById('roi-tool').value;
-    const saved = T.hoursAsc * (factor - 1), value = saved * rate, cost = tool * PERIOD_MONTHS;
-    const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
-    set('roi-rate-v', fmtBRL.format(rate) + '/h'); set('roi-factor-v', fmt1.format(factor) + '×'); set('roi-tool-v', fmtBRL.format(tool) + '/mês');
-    set('roi-hours', fmt1.format(saved)); set('roi-days', fmt1.format(saved / 8)); set('roi-value', fmtBRL.format(value)); set('roi-cost', fmtBRL.format(cost));
-    set('roi-return', cost > 0 ? fmt1.format(value / cost) + '×' : '—');
+  /* ---------- ROI (dev sênior CLT) ---------- */
+  const ROI_IDS = ['roi-salary', 'roi-charges', 'roi-hours-month', 'roi-factor', 'roi-tool'];
+  function roiInputs() {
+    const v = (id) => +document.getElementById(id).value;
+    const salary = v('roi-salary'), charges = v('roi-charges'), hoursMonth = v('roi-hours-month'), factor = v('roi-factor'), tool = v('roi-tool');
+    const rate = (salary * charges) / hoursMonth;
+    const hoursWithout = T.hoursAsc * factor, saved = hoursWithout - T.hoursAsc;
+    const costTool = tool * PERIOD_MONTHS, costWith = T.hoursAsc * rate + costTool, costWithout = hoursWithout * rate;
+    return { salary, charges, hoursMonth, factor, tool, rate, hoursWithout, saved, costTool, costWith, costWithout, saving: costWithout - costWith, ret: costTool > 0 ? (costWithout - costWith) / costTool : null };
   }
-  ['roi-rate', 'roi-factor', 'roi-tool'].forEach((id) => { const e = document.getElementById(id); if (e) e.addEventListener('input', () => { if (id === 'roi-factor') e.dataset.touched = '1'; renderRoi(); }); });
+  window.REPORT_MODEL.roiInputs = roiInputs;
+  function renderRoi() {
+    if (!document.getElementById('roi-salary')) return;
+    const r = roiInputs();
+    const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+    set('roi-salary-v', fmtBRL.format(r.salary)); set('roi-charges-v', fmt1.format(r.charges) + '×'); set('roi-hours-month-v', n(r.hoursMonth) + ' h');
+    set('roi-factor-v', fmt1.format(r.factor) + '×'); set('roi-tool-v', fmtBRL.format(r.tool) + '/mês');
+    set('roi-rate', fmtBRL.format(r.rate) + '/h'); set('roi-rate-note', `${fmtBRL.format(r.salary)} × ${fmt1.format(r.charges)} ÷ ${n(r.hoursMonth)} h = ${fmtBRL.format(r.salary * r.charges)}/mês`);
+    set('roi-hours', fmt1.format(r.saved)); set('roi-days', fmt1.format(r.saved / 8)); set('roi-hours-without', fmt1.format(r.hoursWithout));
+    set('roi-cost-without', fmtBRL.format(r.costWithout)); set('roi-cost-with', fmtBRL.format(r.costWith)); set('roi-cost-tool', fmtBRL.format(r.costTool));
+    set('roi-saving', fmtBRL.format(r.saving)); set('roi-return', r.ret === null ? '—' : fmt1.format(r.ret) + '×');
+  }
+  ROI_IDS.forEach((id) => { const e = document.getElementById(id); if (e) e.addEventListener('input', () => { if (id === 'roi-factor') e.dataset.touched = '1'; renderRoi(); }); });
   renderCompare();
 
   /* ---------- escopo (barra) ---------- */

@@ -48,14 +48,14 @@
       s.addText('Relatório para a diretoria', { x: 0.5, y: 1.1, w: 6, h: 0.4, fontFace: FONT, fontSize: 12, color: CYAN });
       s.addText([{ text: 'Inteligência artificial como par de engenharia na ', options: { bold: false } }, { text: 'plataforma Ascenty', options: { bold: true } }],
         { x: 0.5, y: 1.5, w: 8.5, h: 1.6, fontFace: FONT, fontSize: 34, color: WHITE, valign: 'top' });
-      s.addText('Comparativo de trabalho com IA e sem IA · março a setembro de 2026', { x: 0.5, y: 3.1, w: 8.5, h: 0.5, fontFace: FONT, fontSize: 14, color: 'CCE6EE' });
+      s.addText('Comparativo de trabalho com IA e sem IA · junho a setembro de 2026', { x: 0.5, y: 3.1, w: 8.5, h: 0.5, fontFace: FONT, fontSize: 14, color: 'CCE6EE' });
       s.addChart(pptx.charts.BAR, [{ name: 'Registros', labels: D.months.map((m) => M.MONTH_PT[m.month]), values: D.months.map((m) => m.obsAsc) }],
         { x: 0.5, y: 3.6, w: 9, h: 1.5, barDir: 'col', chartColors: [CYAN], valAxisHidden: true, valGridLine: { style: 'none' }, catAxisLabelColor: 'CCE6EE', catAxisLabelFontSize: 9, catAxisLabelFontFace: FONT, showValue: false, barGapWidthPct: 30, catAxisLineShow: false, valAxisLineShow: false });
       s.addText(`César Oliveira · Engenharia de Plataforma · ${txt('gen-date') || D.generatedAt}`, { x: 0.5, y: 5.25, w: 8, h: 0.3, fontFace: FONT, fontSize: 9, color: '80A0AD' });
     }
     // 2. Sumário executivo
     {
-      const s = base({ title: 'Em seis meses, a IA acompanhou 133 horas de engenharia e deixou rastro em 47 repositórios', lede: 'Números medidos na memória persistente das sessões (claude-mem), escopo Ascenty/TOTVS.' });
+      const s = base({ title: `Em ${f1(T.periodMonths)} meses, a IA acompanhou ${f1(T.hoursAsc)} horas de engenharia e deixou rastro em ${n(T.projectsAsc)} repositórios`, lede: 'Números medidos na memória persistente das sessões (claude-mem), escopo Ascenty/TOTVS.' });
       kpi(s, 0.5, 1.8, 2.2, f1(T.hoursAsc) + ' h', 'horas ativas de trabalho com IA (medido)');
       kpi(s, 2.8, 1.8, 2.2, n(T.obsAsc), 'registros de trabalho capturados');
       kpi(s, 5.1, 1.8, 2.2, n(T.projectsAsc), 'repositórios/serviços tocados');
@@ -141,16 +141,15 @@
     }
     // 10. ROI
     {
-      const rate = +document.getElementById('roi-rate').value, factor = +document.getElementById('roi-factor').value, tool = +document.getElementById('roi-tool').value;
-      const saved = T.hoursAsc * (factor - 1), value = saved * rate, cost = tool * M.PERIOD_MONTHS;
+      const r = M.roiInputs();
       const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-      const s = base({ title: 'Retorno: o custo da ferramenta é uma fração do valor das horas liberadas', lede: `Premissas usadas nesta versão: ${brl.format(rate)}/h de custo de engenharia, fator ${f1(factor)}×, ${brl.format(tool)}/mês de ferramenta, ${M.PERIOD_MONTHS} meses. Ajustáveis na versão web.` });
-      kpi(s, 0.5, 1.9, 2.2, f1(saved) + ' h', `horas liberadas (${f1(saved / 8)} dias úteis)`);
-      kpi(s, 2.8, 1.9, 2.2, brl.format(value), 'valor equivalente das horas');
-      kpi(s, 5.1, 1.9, 2.2, brl.format(cost), 'custo da ferramenta no período');
-      kpi(s, 7.4, 1.9, 2.2, (cost > 0 ? f1(value / cost) + '×' : '—'), 'retorno sobre o custo da ferramenta');
-      bullets(s, ['O valor liberado é reinvestido em trabalho que antes não cabia na agenda: testes, documentação, planos de migração e análise de risco.',
-        'A conta não inclui redução de retrabalho nem ganhos em onboarding de novos engenheiros, ambos observados qualitativamente.',
+      const s = base({ title: 'Custo do trabalho com IA e sem IA para um desenvolvedor sênior CLT', lede: `Premissas: salário ${brl.format(r.salary)}/mês, encargos e benefícios ${f1(r.charges)}× (${brl.format(r.salary * r.charges)}/mês), ${n(r.hoursMonth)} h/mês, custo da hora ${brl.format(r.rate)}, fator ${f1(r.factor)}×, ferramenta ${brl.format(r.tool)}/mês, período de ${f1(T.periodMonths)} meses. Ajustáveis na versão web.` });
+      kpi(s, 0.5, 1.9, 2.2, brl.format(r.costWithout), `custo do trabalho sem IA (${f1(r.hoursWithout)} h estimadas)`);
+      kpi(s, 2.8, 1.9, 2.2, brl.format(r.costWith), `custo com IA (${f1(T.hoursAsc)} h medidas + ferramenta ${brl.format(r.costTool)})`);
+      kpi(s, 5.1, 1.9, 2.2, brl.format(r.saving), `economia líquida (${f1(r.saved)} h, ${f1(r.saved / 8)} dias úteis)`);
+      kpi(s, 7.4, 1.9, 2.2, (r.ret === null ? '—' : f1(r.ret) + '×'), 'retorno sobre o custo da ferramenta');
+      bullets(s, ['As horas liberadas viram trabalho que antes não cabia na agenda: testes, documentação, planos de migração e análise de risco.',
+        'A conta considera um único engenheiro e não inclui redução de retrabalho nem ganhos em onboarding de novos integrantes.',
         'Todos os parâmetros são editáveis na versão web do relatório para simulação ao vivo na reunião.'], { x: 0.5, y: 3.3, w: 9, h: 1.8, fontSize: 11 });
     }
     // 11. Limites

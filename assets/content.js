@@ -10,9 +10,9 @@
     ], facts: '605 registros · 16,7 h · 169 funcionalidades · 84 arquivos', f: [['605', 'registros'], ['16,7 h', 'ativas'], ['84', 'arquivos']] },
     { title: 'api-nemesis: NAT e VPN multifornecedor', ctx: 'API central da plataforma · Gin + GORM', items: [
       'Estratégia de migração de NAT do Palo Alto para o firewall físico Fortinet, com preservação de source host em firewall virtual.',
-      'Correção do erro EOF em upload para ESXi forçando HTTP/1.1 na negociação TLS.',
-      'Nomenclatura sequencial de VPN Fortinet documentada e implementada.'
-    ], facts: '301 registros · 10,9 h · 34 correções · 68 arquivos', f: [['301', 'registros'], ['10,9 h', 'ativas'], ['34', 'correções']] },
+      'Política de firewall de entrada para túneis VPN documentada e implementada.',
+      'Consulta de VPN passou a devolver o status sem bloquear no refresh, eliminando espera na API.'
+    ], facts: '241 registros · 7,8 h · 25 correções · 68 arquivos', f: [['241', 'registros'], ['7,8 h', 'ativas'], ['25', 'correções']] },
     { title: 'Citrix DaaS: especificação e backlog', ctx: 'Cone Norte · provisionamento de VDA', items: [
       'Especificação de provisionamento com 15 handlers do worker documentados e payload de referência.',
       'Épicos e histórias exportados em CSV pronto para importação no Jira.',
@@ -28,25 +28,25 @@
       'Especificação da biblioteca SDK NetScaler com quebra em cards.',
       'Template de especificação para migração da API NSX-T para VCF 9.1.'
     ], facts: '143 registros · 6,4 h · 57 arquivos', f: [['143', 'registros'], ['6,4 h', 'ativas'], ['57', 'arquivos']] },
-    { title: 'Qualidade e segurança em SDKs', ctx: 'fortinet-sdk · unbound-golang · go-vrf · vmware-download', items: [
-      'fortinet-sdk: 17 testes para System Zone, testes de paginação e Move(), especificação OpenAPI e plano de remediação de exposição de token.',
-      'unbound-golang: 25 testes de filestore e correção de race condition no ciclo de vida do servidor gRPC.',
-      'go-vrf: correção de path traversal em operações de arquivo; vmware-download: 12 testes de segurança do locator vSphere.'
-    ], facts: '410 registros ligados a testes · 47 a segurança (escopo Ascenty)', f: [['410', 'testes'], ['47', 'segurança'], ['512', 'docs/planos']] }
+    { title: 'Qualidade e segurança em SDKs e serviços', ctx: 'go-vrf · vmware-download · fortinet-sdk · vmware-replication', items: [
+      'go-vrf: suíte de testes do serviço CreateNetworksVRF, teste de integração end-to-end e erros tipados para respostas 404 do NSX-T.',
+      'vmware-download: 12 testes de segurança do locator vSphere e validação estrita contra injeção em nomes de VM.',
+      'fortinet-sdk: especificação OpenAPI das rotas e plano de remediação para exposição de token; vmware-replication: controle proativo de rate limit.'
+    ], facts: '268 registros ligados a testes · 20 a segurança (escopo Ascenty)', f: [['268', 'testes'], ['20', 'segurança'], ['450', 'docs/planos']] }
   ];
 
   window.REPORT_QUAL = [
     ['Onboarding em repositório desconhecido', 'Horas lendo dezenas de arquivos para entender o padrão worker/REST e o fluxo AMQP entre serviços.', 'Mapeamento de 200 serviços e criação do CLAUDE.md da plataforma em uma sessão; padrão reaplicado em 15 repositórios.'],
     ['Consistência entre microsserviços', 'Copiar e colar entre N arquivos de configuração, com risco de divergência.', 'Mesmo padrão de create/rollback aplicado a 6 serviços da VPN Fortinet com 18 binding keys novas, JSON validado.'],
-    ['Geração mecânica', 'DDL, payloads e casos de teste escritos à mão, sujeitos a erro de nomenclatura.', 'DDL de 11 tabelas via reflexão das regras do GORM; suítes de 12 a 25 testes entregues junto com o código.'],
+    ['Geração mecânica', 'DDL, payloads e casos de teste escritos à mão, sujeitos a erro de nomenclatura.', 'DDL de 11 tabelas via reflexão das regras do GORM; suítes de testes (12 casos no vmware-download, integração end-to-end no go-vrf) entregues junto com o código.'],
     ['Planejamento e backlog', 'Plano e cards escritos depois de dias de levantamento.', 'Plano de 29 cards (27,25 dias-pessoa) e backlogs Jira em CSV gerados a partir do código real, em horas.'],
-    ['Memória institucional', 'Conhecimento na cabeça de quem fez; perde-se na troca de pessoa.', '681 resumos de sessão com pedido, aprendizado, entregas e próximos passos, recuperáveis por busca.'],
+    ['Memória institucional', 'Conhecimento na cabeça de quem fez; perde-se na troca de pessoa.', '460 resumos de sessão com pedido, aprendizado, entregas e próximos passos, recuperáveis por busca.'],
     ['Análise de risco', 'Bloqueios descobertos na hora do deploy.', 'Bloqueios de produção apontados antes de codar (colisão de campos JSON, dependências de etcd, ordem da cadeia AMQP).'],
-    ['Cobertura de testes', 'Frequentemente adiada por pressão de prazo.', 'Testes fazem parte da entrega: 410 registros ligados a testes no escopo Ascenty.']
+    ['Cobertura de testes', 'Frequentemente adiada por pressão de prazo.', 'Testes fazem parte da entrega: 268 registros ligados a testes no escopo Ascenty.']
   ];
 
   window.REPORT_LIMITS = [
-    'Amostra de um único engenheiro sênior, que escolheu quando usar IA. Não é um experimento controlado; os ganhos podem variar por pessoa e por tipo de tarefa.',
+    'Amostra de um único engenheiro sênior em pouco mais de três meses (junho a setembro de 2026), que escolheu quando usar IA. Não é um experimento controlado; os ganhos podem variar por pessoa e por tipo de tarefa.',
     'As horas "sem IA" são estimadas por fatores calibrados em estudos públicos, não medidas. Por isso apresentamos dois cenários e deixamos os parâmetros editáveis.',
     'Horas ativas são um proxy calculado a partir dos horários dos registros (teto de 30 minutos de inatividade). Tendem a subestimar o tempo total de acompanhamento humano.',
     'O estudo METR (2025) mostrou desenvolvedores experientes 19% mais lentos com IA em repositórios que já dominavam. O ganho depende de onde a IA é aplicada: aqui, majoritariamente em descoberta, migração e geração mecânica.',

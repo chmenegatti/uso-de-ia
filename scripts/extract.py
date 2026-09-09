@@ -21,7 +21,8 @@ PERSONAL = {
 }
 CAP = 30 * 60 * 1000
 ISOLATED = 5 * 60 * 1000
-MONTHS = ['2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09']
+MONTHS = ['2026-06', '2026-07', '2026-08', '2026-09']
+PERIOD_START = '2026-06-01'  # recorte solicitado: medir somente de junho em diante
 
 
 def scope(p):
@@ -49,9 +50,13 @@ def main():
     c = sqlite3.connect(DB)
     q = lambda s: list(c.execute(s))
     pl = ','.join("'%s'" % x for x in PERSONAL)
-    obs = q('select memory_session_id,project,created_at_epoch,type,discovery_tokens from observations')
+    start_ms = int(datetime.datetime.fromisoformat(PERIOD_START + 'T00:00:00+00:00').timestamp() * 1000)
+    obs = q('select memory_session_id,project,created_at_epoch,type,discovery_tokens from observations '
+            'where created_at_epoch >= %d' % start_ms)
     prompts = q('select s.project,up.created_at_epoch from user_prompts up '
-                'join sdk_sessions s on s.content_session_id=up.content_session_id')
+                'join sdk_sessions s on s.content_session_id=up.content_session_id '
+                'where up.created_at_epoch >= %d' % start_ms)
+    per = 'created_at_epoch >= %d' % start_ms
 
     M = {m: dict(month=m, obsAsc=0, obsOther=0, promptsAsc=0, promptsOther=0, hoursAsc=0, daysAsc=0,
                  tokensAsc=0, bugfixAsc=0, featureAsc=0, discoveryAsc=0) for m in MONTHS}
@@ -111,7 +116,7 @@ def main():
                 P[p]['bugfix'] += 1
             if t == 'feature':
                 P[p]['feature'] += 1
-    for p, f in q('select project,files_modified from observations'):
+    for p, f in q('select project,files_modified from observations where %s' % per):
         if scope(p) == 'ascenty' and f:
             try:
                 lst = json.loads(f)
@@ -126,8 +131,8 @@ def main():
     all_oth = [e for _, p, e, _, _ in obs if scope(p) != 'ascenty'] + [e for p, e in prompts if scope(p) != 'ascenty']
     like = lambda cols: ' or '.join("lower(title) like '%%%s%%'" % w for w in cols)
     totals = dict(
-        sessions=q('select count(*) from sdk_sessions')[0][0],
-        sessionsAsc=q('select count(*) from sdk_sessions where project not in (%s)' % pl)[0][0],
+        sessions=q('select count(*) from sdk_sessions where started_at_epoch >= %d' % start_ms)[0][0],
+        sessionsAsc=q('select count(*) from sdk_sessions where started_at_epoch >= %d and project not in (%s)' % (start_ms, pl))[0][0],
         prompts=len(prompts), promptsAsc=sum(1 for p, e in prompts if scope(p) == 'ascenty'),
         obs=len(obs), obsAsc=sum(1 for o in obs if scope(o[1]) == 'ascenty'),
         tokens=sum(o[4] for o in obs), tokensAsc=sum(o[4] for o in obs if scope(o[1]) == 'ascenty'),
@@ -135,11 +140,16 @@ def main():
         daysAsc=len({day(e) for e in all_asc}), daysAll=len({day(o[2]) for o in obs}),
         projectsAsc=len(P), filesModAsc=len(set().union(*[v['files'] for v in P.values()])),
         firstAsc=min(day(e) for e in all_asc), lastAsc=max(day(e) for e in all_asc),
-        summariesAsc=q('select count(*) from session_summaries where project not in (%s)' % pl)[0][0],
-        testObs=q('select count(*) from observations where project not in (%s) and (%s)' % (pl, like(['test', 'teste'])))[0][0],
-        securityObs=q('select count(*) from observations where project not in (%s) and (%s)' % (pl, like(['security', 'vulnerab', 'seguran', 'traversal', 'token exposure'])))[0][0],
-        docsObs=q('select count(*) from observations where project not in (%s) and (%s)' % (pl, like(['claude.md', 'document', 'especifica', 'specification', 'plan', 'jira', 'backlog'])))[0][0],
+        summariesAsc=q('select count(*) from session_summaries where %s and project not in (%s)' % (per, pl))[0][0],
+        testObs=q('select count(*) from observations where %s and project not in (%s) and (%s)' % (per, pl, like(['test', 'teste'])))[0][0],
+        securityObs=q('select count(*) from observations where %s and project not in (%s) and (%s)' % (per, pl, like(['security', 'vulnerab', 'seguran', 'traversal', 'token exposure'])))[0][0],
+        docsObs=q('select count(*) from observations where %s and project not in (%s) and (%s)' % (per, pl, like(['claude.md', 'document', 'especifica', 'specification', 'plan', 'jira', 'backlog'])))[0][0],
     )
+    d0 = datetime.date.fromisoformat(PERIOD_START)
+    d1 = datetime.date.fromisoformat(totals['lastAsc'])
+    totals['periodStart'] = PERIOD_START
+    totals['periodDays'] = (d1 - d0).days + 1
+    totals['periodMonths'] = round(totals['periodDays'] / 30.44, 1)
     data = dict(generatedAt=datetime.date.today().isoformat(), months=list(M.values()), types=types,
                 projects=projects, totals=totals)
     with open(OUT, 'w', encoding='utf-8') as fh:

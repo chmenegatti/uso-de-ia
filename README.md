@@ -1,7 +1,7 @@
 # Relatório de uso de IA — Plataforma Ascenty (TOTVS)
 
 Site estático (GitHub Pages) com o relatório comparativo de uso de inteligência artificial na engenharia
-da plataforma Ascenty: trabalho **com IA** (medido) versus **sem IA** (estimado), março a setembro de 2026.
+da plataforma Ascenty: trabalho **com IA** (medido) versus **sem IA** (estimado), junho a setembro de 2026 (recorte a partir de 01/06; base de custo: dev sênior CLT R$ 12 mil/mês).
 
 - `index.html` — relatório completo em 13 seções (formato 16:9, uma seção por slide).
 - `assets/data.js` — dataset extraído da base `claude-mem` (`~/.claude-mem/claude-mem.db`), gerado por `scripts/extract.py`.

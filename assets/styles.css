@@ -295,7 +295,7 @@ footer.site { padding: 24px var(--slide-pad); font-size: 0.85rem; color: var(--m
   .slide h2 { font-size: 1.75rem; margin-bottom: 6px; }
   .lede { font-size: 1.05rem; margin-bottom: 12px; }
   .roi { grid-template-columns: 1fr !important; }
-  .roi-out { grid-template-columns: repeat(4, 1fr) !important; }
+  .roi-out { grid-template-columns: repeat(3, 1fr) !important; }
   .roi-out .stat.accent { grid-column: auto; }
   .cases .case ul { font-size: 0.8rem; }
   .case .ctx { margin-bottom: 1.5mm; }

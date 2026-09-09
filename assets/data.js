@@ -1,45 +1,6 @@
 window.REPORT_DATA = {
- "generatedAt": "2026-09-08",
+ "generatedAt": "2026-09-09",
  "months": [
-  {
-   "month": "2026-03",
-   "obsAsc": 179,
-   "obsOther": 154,
-   "promptsAsc": 39,
-   "promptsOther": 45,
-   "hoursAsc": 6.9,
-   "daysAsc": 8,
-   "tokensAsc": 716960,
-   "bugfixAsc": 7,
-   "featureAsc": 71,
-   "discoveryAsc": 39
-  },
-  {
-   "month": "2026-04",
-   "obsAsc": 82,
-   "obsOther": 201,
-   "promptsAsc": 51,
-   "promptsOther": 118,
-   "hoursAsc": 5.3,
-   "daysAsc": 1,
-   "tokensAsc": 469741,
-   "bugfixAsc": 10,
-   "featureAsc": 31,
-   "discoveryAsc": 7
-  },
-  {
-   "month": "2026-05",
-   "obsAsc": 520,
-   "obsOther": 249,
-   "promptsAsc": 164,
-   "promptsOther": 77,
-   "hoursAsc": 21.6,
-   "daysAsc": 13,
-   "tokensAsc": 2932758,
-   "bugfixAsc": 48,
-   "featureAsc": 159,
-   "discoveryAsc": 109
-  },
   {
    "month": "2026-06",
    "obsAsc": 697,
@@ -81,54 +42,54 @@ window.REPORT_DATA = {
   },
   {
    "month": "2026-09",
-   "obsAsc": 414,
+   "obsAsc": 430,
    "obsOther": 389,
-   "promptsAsc": 46,
+   "promptsAsc": 47,
    "promptsOther": 123,
-   "hoursAsc": 10.9,
+   "hoursAsc": 11.3,
    "daysAsc": 6,
-   "tokensAsc": 2487679,
+   "tokensAsc": 2675903,
    "bugfixAsc": 19,
-   "featureAsc": 61,
+   "featureAsc": 70,
    "discoveryAsc": 146
   }
  ],
  "types": [
   {
-   "type": "discovery",
-   "count": 1262,
-   "hours": 42.7,
-   "tokens": 6046983
+   "type": "change",
+   "count": 762,
+   "hours": 18.5,
+   "tokens": 4645991
   },
   {
    "type": "feature",
-   "count": 770,
-   "hours": 22.9,
-   "tokens": 5265567
-  },
-  {
-   "type": "change",
-   "count": 954,
-   "hours": 24.0,
-   "tokens": 5369815
-  },
-  {
-   "type": "refactor",
-   "count": 257,
-   "hours": 4.9,
-   "tokens": 2007529
+   "count": 518,
+   "hours": 14.5,
+   "tokens": 3945149
   },
   {
    "type": "decision",
-   "count": 136,
-   "hours": 12.0,
-   "tokens": 1289892
+   "count": 115,
+   "hours": 10.4,
+   "tokens": 1230708
+  },
+  {
+   "type": "discovery",
+   "count": 1107,
+   "hours": 34.9,
+   "tokens": 5440665
   },
   {
    "type": "bugfix",
-   "count": 228,
-   "hours": 6.2,
-   "tokens": 2357498
+   "count": 163,
+   "hours": 4.3,
+   "tokens": 1723295
+  },
+  {
+   "type": "refactor",
+   "count": 177,
+   "hours": 3.2,
+   "tokens": 1420241
   }
  ],
  "projects": [
@@ -142,15 +103,6 @@ window.REPORT_DATA = {
    "files": 84
   },
   {
-   "name": "api-nemesis",
-   "obs": 301,
-   "tokens": 3568965,
-   "hours": 10.9,
-   "bugfix": 34,
-   "feature": 26,
-   "files": 68
-  },
-  {
    "name": "Citrix",
    "obs": 383,
    "tokens": 2345049,
@@ -160,6 +112,15 @@ window.REPORT_DATA = {
    "files": 116
   },
   {
+   "name": "api-nemesis",
+   "obs": 241,
+   "tokens": 3122952,
+   "hours": 7.8,
+   "bugfix": 25,
+   "feature": 17,
+   "files": 60
+  },
+  {
    "name": "netscaler",
    "obs": 143,
    "tokens": 906952,
@@ -167,15 +128,6 @@ window.REPORT_DATA = {
    "bugfix": 0,
    "feature": 30,
    "files": 57
-  },
-  {
-   "name": "fortinet-sdk",
-   "obs": 133,
-   "tokens": 476665,
-   "hours": 4.8,
-   "bugfix": 3,
-   "feature": 50,
-   "files": 84
   },
   {
    "name": "etcd",
@@ -196,6 +148,15 @@ window.REPORT_DATA = {
    "files": 28
   },
   {
+   "name": "totvs",
+   "obs": 132,
+   "tokens": 671068,
+   "hours": 4.3,
+   "bugfix": 1,
+   "feature": 18,
+   "files": 31
+  },
+  {
    "name": "vmware-virtual-machine",
    "obs": 107,
    "tokens": 1560679,
@@ -203,15 +164,6 @@ window.REPORT_DATA = {
    "bugfix": 10,
    "feature": 10,
    "files": 13
-  },
-  {
-   "name": "totvs",
-   "obs": 116,
-   "tokens": 482844,
-   "hours": 3.9,
-   "bugfix": 1,
-   "feature": 9,
-   "files": 17
   },
   {
    "name": "nsxt-dhcp",
@@ -223,15 +175,6 @@ window.REPORT_DATA = {
    "files": 22
   },
   {
-   "name": "unbound-golang",
-   "obs": 82,
-   "tokens": 469741,
-   "hours": 3.4,
-   "bugfix": 10,
-   "feature": 31,
-   "files": 52
-  },
-  {
    "name": "etcd-manager",
    "obs": 110,
    "tokens": 632138,
@@ -241,15 +184,6 @@ window.REPORT_DATA = {
    "files": 56
   },
   {
-   "name": "go-vrf",
-   "obs": 131,
-   "tokens": 453730,
-   "hours": 3.2,
-   "bugfix": 15,
-   "feature": 21,
-   "files": 44
-  },
-  {
    "name": "fortinet-firewall-policy",
    "obs": 86,
    "tokens": 174808,
@@ -257,24 +191,6 @@ window.REPORT_DATA = {
    "bugfix": 4,
    "feature": 6,
    "files": 15
-  },
-  {
-   "name": "rmq-monit",
-   "obs": 88,
-   "tokens": 568693,
-   "hours": 2.3,
-   "bugfix": 1,
-   "feature": 39,
-   "files": 30
-  },
-  {
-   "name": "vsphere-disk-correlator",
-   "obs": 57,
-   "tokens": 302388,
-   "hours": 2.2,
-   "bugfix": 7,
-   "feature": 26,
-   "files": 31
   },
   {
    "name": "vmware-replication-sdk",
@@ -304,33 +220,6 @@ window.REPORT_DATA = {
    "files": 7
   },
   {
-   "name": "fortinet-vpn-ipsec-phase1",
-   "obs": 42,
-   "tokens": 159808,
-   "hours": 1.5,
-   "bugfix": 0,
-   "feature": 12,
-   "files": 29
-  },
-  {
-   "name": "moirai-sanitizer",
-   "obs": 14,
-   "tokens": 113063,
-   "hours": 1.3,
-   "bugfix": 0,
-   "feature": 9,
-   "files": 8
-  },
-  {
-   "name": "fortinet-vpn-system-zone",
-   "obs": 63,
-   "tokens": 146566,
-   "hours": 1.2,
-   "bugfix": 3,
-   "feature": 15,
-   "files": 23
-  },
-  {
    "name": "vm-disks",
    "obs": 25,
    "tokens": 165751,
@@ -338,15 +227,6 @@ window.REPORT_DATA = {
    "bugfix": 2,
    "feature": 8,
    "files": 11
-  },
-  {
-   "name": "fortinet-service",
-   "obs": 32,
-   "tokens": 116164,
-   "hours": 1.1,
-   "bugfix": 4,
-   "feature": 3,
-   "files": 8
   },
   {
    "name": "set-private-ip",
@@ -358,22 +238,13 @@ window.REPORT_DATA = {
    "files": 24
   },
   {
-   "name": "core",
-   "obs": 27,
-   "tokens": 251022,
-   "hours": 1.0,
-   "bugfix": 1,
-   "feature": 6,
-   "files": 8
-  },
-  {
-   "name": "moirai-flow",
-   "obs": 47,
-   "tokens": 162228,
-   "hours": 1.0,
+   "name": "fortinet-service",
+   "obs": 32,
+   "tokens": 116164,
+   "hours": 1.1,
    "bugfix": 4,
-   "feature": 22,
-   "files": 24
+   "feature": 3,
+   "files": 8
   },
   {
    "name": "fortinet-static-route",
@@ -385,31 +256,22 @@ window.REPORT_DATA = {
    "files": 7
   },
   {
-   "name": "user-gateway",
-   "obs": 28,
-   "tokens": 84379,
-   "hours": 0.9,
+   "name": "fortinet-address",
+   "obs": 38,
+   "tokens": 83222,
+   "hours": 0.7,
    "bugfix": 4,
-   "feature": 9,
-   "files": 24
-  },
-  {
-   "name": "vmware-disk",
-   "obs": 11,
-   "tokens": 69177,
-   "hours": 0.7,
-   "bugfix": 3,
    "feature": 1,
-   "files": 4
+   "files": 7
   },
   {
-   "name": "nemesis-starter",
-   "obs": 24,
-   "tokens": 550291,
+   "name": "core",
+   "obs": 21,
+   "tokens": 61649,
    "hours": 0.7,
-   "bugfix": 10,
-   "feature": 3,
-   "files": 16
+   "bugfix": 1,
+   "feature": 5,
+   "files": 7
   },
   {
    "name": "paloalto-ikegateway",
@@ -421,40 +283,13 @@ window.REPORT_DATA = {
    "files": 10
   },
   {
-   "name": "fortinet-address",
-   "obs": 38,
-   "tokens": 83222,
-   "hours": 0.7,
-   "bugfix": 4,
-   "feature": 1,
-   "files": 7
-  },
-  {
-   "name": "nsxt-nat",
-   "obs": 26,
-   "tokens": 62664,
+   "name": "fortinet-sdk",
+   "obs": 13,
+   "tokens": 97077,
    "hours": 0.6,
    "bugfix": 1,
-   "feature": 14,
-   "files": 9
-  },
-  {
-   "name": "fortinet-vpn-ipsec-phase2",
-   "obs": 26,
-   "tokens": 50782,
-   "hours": 0.6,
-   "bugfix": 1,
-   "feature": 1,
-   "files": 13
-  },
-  {
-   "name": "nemesis-nat",
-   "obs": 41,
-   "tokens": 72860,
-   "hours": 0.6,
-   "bugfix": 0,
-   "feature": 0,
-   "files": 5
+   "feature": 2,
+   "files": 4
   },
   {
    "name": "go-nsxt",
@@ -466,22 +301,22 @@ window.REPORT_DATA = {
    "files": 5
   },
   {
-   "name": "find-disk",
-   "obs": 9,
-   "tokens": 83161,
-   "hours": 0.5,
+   "name": "nemesis-nat",
+   "obs": 41,
+   "tokens": 72860,
+   "hours": 0.6,
    "bugfix": 0,
-   "feature": 5,
-   "files": 7
+   "feature": 0,
+   "files": 5
   },
   {
-   "name": "ztna",
-   "obs": 32,
-   "tokens": 148368,
-   "hours": 0.4,
-   "bugfix": 4,
+   "name": "go-vrf",
+   "obs": 24,
+   "tokens": 171195,
+   "hours": 0.5,
+   "bugfix": 2,
    "feature": 9,
-   "files": 11
+   "files": 14
   },
   {
    "name": "nemesis-public-address",
@@ -493,13 +328,31 @@ window.REPORT_DATA = {
    "files": 11
   },
   {
-   "name": "pools",
-   "obs": 22,
-   "tokens": 86178,
+   "name": "ztna",
+   "obs": 32,
+   "tokens": 148368,
+   "hours": 0.4,
+   "bugfix": 4,
+   "feature": 9,
+   "files": 11
+  },
+  {
+   "name": "fortinet-vpn-system-zone",
+   "obs": 23,
+   "tokens": 44804,
+   "hours": 0.3,
+   "bugfix": 3,
+   "feature": 3,
+   "files": 8
+  },
+  {
+   "name": "fortinet-vpn-ipsec-phase1",
+   "obs": 20,
+   "tokens": 46800,
    "hours": 0.3,
    "bugfix": 0,
-   "feature": 10,
-   "files": 12
+   "feature": 2,
+   "files": 5
   },
   {
    "name": "firewall-security-policy",
@@ -511,30 +364,12 @@ window.REPORT_DATA = {
    "files": 5
   },
   {
-   "name": "nsxt-pool",
-   "obs": 2,
-   "tokens": 18558,
-   "hours": 0.1,
+   "name": "fortinet-vpn-ipsec-phase2",
+   "obs": 11,
+   "tokens": 25029,
+   "hours": 0.2,
    "bugfix": 0,
-   "feature": 0,
-   "files": 3
-  },
-  {
-   "name": "fortinet-schedule-recurring",
-   "obs": 7,
-   "tokens": 12212,
-   "hours": 0.1,
-   "bugfix": 0,
-   "feature": 5,
-   "files": 5
-  },
-  {
-   "name": "devops-vms",
-   "obs": 13,
-   "tokens": 23480,
-   "hours": 0.1,
-   "bugfix": 0,
-   "feature": 4,
+   "feature": 1,
    "files": 6
   },
   {
@@ -547,35 +382,47 @@ window.REPORT_DATA = {
    "files": 2
   },
   {
-   "name": "ontap-replication",
-   "obs": 1,
-   "tokens": 10906,
-   "hours": 0.0,
+   "name": "devops-vms",
+   "obs": 13,
+   "tokens": 23480,
+   "hours": 0.1,
    "bugfix": 0,
-   "feature": 0,
-   "files": 1
+   "feature": 4,
+   "files": 6
+  },
+  {
+   "name": "fortinet-schedule-recurring",
+   "obs": 7,
+   "tokens": 12212,
+   "hours": 0.1,
+   "bugfix": 0,
+   "feature": 5,
+   "files": 5
   }
  ],
  "totals": {
-  "sessions": 430,
-  "sessionsAsc": 367,
-  "prompts": 1535,
-  "promptsAsc": 782,
-  "obs": 6961,
-  "obsAsc": 3607,
-  "tokens": 36423004,
-  "tokensAsc": 22337284,
-  "hoursAsc": 133.0,
-  "hoursOther": 99.9,
-  "daysAsc": 84,
-  "daysAll": 96,
-  "projectsAsc": 47,
-  "filesModAsc": 968,
-  "firstAsc": "2026-03-15",
+  "sessions": 318,
+  "sessionsAsc": 286,
+  "prompts": 1042,
+  "promptsAsc": 529,
+  "obs": 5592,
+  "obsAsc": 2842,
+  "tokens": 28949840,
+  "tokensAsc": 18406049,
+  "hoursAsc": 99.3,
+  "hoursOther": 73.9,
+  "daysAsc": 58,
+  "daysAll": 64,
+  "projectsAsc": 34,
+  "filesModAsc": 694,
+  "firstAsc": "2026-06-01",
   "lastAsc": "2026-09-09",
-  "summariesAsc": 681,
-  "testObs": 410,
-  "securityObs": 47,
-  "docsObs": 512
+  "summariesAsc": 460,
+  "testObs": 268,
+  "securityObs": 20,
+  "docsObs": 450,
+  "periodStart": "2026-06-01",
+  "periodDays": 101,
+  "periodMonths": 3.3
  }
 };
