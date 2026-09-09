@@ -190,6 +190,7 @@
     } finally { btn.disabled = false; }
   }
   btn.addEventListener('click', run);
+  window.REPORT_BUILD_PPTX = build; // exposto para testes automatizados
   modal.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => { modal.hidden = true; }));
   modal.addEventListener('click', (e) => { if (e.target === modal) modal.hidden = true; });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.hidden = true; });
