@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uso de IA na Plataforma Ascenty</title>
+<meta name="description" content="Relatório comparativo de uso de inteligência artificial na engenharia da plataforma Ascenty (TOTVS): com IA e sem IA, março a setembro de 2026.">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23002233'/%3E%3Crect x='7' y='8' width='18' height='4' fill='%2300DBFF'/%3E%3Crect x='14' y='12' width='4' height='12' fill='%2300DBFF'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="topbar no-print">
+  <a class="wordmark" href="#capa">TOTVS <span>Plataforma Ascenty</span></a>
+  <nav aria-label="Ações">
+    <span id="pptx-status" class="status" aria-live="polite"></span>
+    <button class="btn ghost" id="btn-pdf" type="button" title="Abre a impressão do navegador; escolha “Salvar como PDF”">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6z"/></svg>
+      Exportar PDF
+    </button>
+    <button class="btn" id="btn-pptx" type="button" title="Gera um arquivo .pptx para importar no Google Slides">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+      Exportar para Google Slides
+    </button>
+  </nav>
+</header>
+
+<main>
+
+<!-- 1. Capa -->
+<section class="slide navy cover" id="capa">
+  <div class="inner">
+    <div class="kicker">Relatório para a diretoria TOTVS</div>
+    <h1>Inteligência artificial como par de engenharia na <strong>plataforma Ascenty</strong></h1>
+    <p class="sub">Comparativo de trabalho com IA e sem IA, medido a partir do histórico real das sessões de desenvolvimento. Março a setembro de 2026.</p>
+    <div class="cover-chart" id="cover-chart" aria-hidden="true"></div>
+    <div class="meta">
+      <div><b>Autor</b>César Oliveira · Engenharia de Plataforma</div>
+      <div><b>Período analisado</b>15/03/2026 a 09/09/2026</div>
+      <div><b>Fonte</b>Memória persistente das sessões (claude-mem)</div>
+      <div><b>Emitido em</b><span id="gen-date" data-kpi="generatedAt"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Sumário executivo -->
+<section class="slide" id="sumario">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Em seis meses, a IA acompanhou <span data-kpi="hoursAsc"></span> de engenharia e deixou rastro em <span data-kpi="projectsAsc"></span> repositórios</h2>
+    <p class="lede">Todos os números desta página foram medidos, não declarados: cada ação relevante da IA gera um registro com tipo, arquivos e horário na memória persistente das sessões.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="label">Horas ativas de trabalho com IA</div><div class="value" data-kpi="hoursAsc"></div><div class="note">medido, escopo Ascenty</div></div>
+      <div class="kpi"><div class="label">Registros de trabalho capturados</div><div class="value" data-kpi="obsAsc"></div><div class="note">em <span data-kpi="daysAsc"></span> dias com atividade</div></div>
+      <div class="kpi"><div class="label">Repositórios e serviços tocados</div><div class="value" data-kpi="projectsAsc"></div><div class="note">de ~200 módulos da plataforma</div></div>
+      <div class="kpi"><div class="label">Arquivos criados ou alterados</div><div class="value" data-kpi="filesModAsc"></div><div class="note">com <span data-kpi="bugfixAsc"></span> correções de bug registradas</div></div>
+    </div>
+    <div class="takeaways">
+      <div><h3>O mesmo trabalho sem IA levaria cerca de <span data-kpi="withoutCentral"></span></h3><p>Estimativa central: diferença de <span data-kpi="savedCentral"></span>, o equivalente a <span data-kpi="savedDaysCentral"></span> dias úteis em seis meses. No cenário conservador, <span data-kpi="savedCons"></span>.</p></div>
+      <div><h3><span data-kpi="discoveryShare"></span> do uso foi ler e entender código</h3><p>A fase mais cara para um engenheiro em uma base de ~200 microsserviços independentes é exatamente onde a IA mais comprime o ciclo.</p></div>
+      <div><h3>Qualidade entrou no fluxo, não depois dele</h3><p><span data-kpi="testObs"></span> registros ligados a testes, <span data-kpi="docsObs"></span> a documentação e planejamento, <span data-kpi="securityObs"></span> a segurança.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Metodologia -->
+<section class="slide plane" id="metodo">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Como medimos: dados reais das sessões, sem autoavaliação</h2>
+    <p class="lede">A ferramenta de IA registra, a cada ação, um resumo estruturado do que foi lido, decidido ou alterado. Esse histórico é a fonte única deste relatório.</p>
+    <div class="method">
+      <ol class="steps">
+        <li><h4>Coleta</h4><p>Base completa com <span data-kpi="sessionsAll"></span> sessões, <span data-kpi="promptsAll"></span> pedidos e <span data-kpi="obsAll"></span> registros de trabalho entre 15/03 e 09/09/2026, em <span data-kpi="daysAll"></span> dias distintos.</p></li>
+        <li><h4>Escopo</h4><p>Mantivemos apenas projetos da plataforma Ascenty/TOTVS (<span data-kpi="projectsAsc"></span> repositórios). Projetos pessoais e de estudo foram excluídos da análise.</p></li>
+        <li><h4>Horas ativas</h4><p>Soma dos intervalos entre registros consecutivos, com teto de 30 minutos de inatividade. É o mesmo método usado para estimar horas a partir de histórico git. Tende a subestimar.</p></li>
+        <li><h4>Horas sem IA</h4><p>Horas medidas multiplicadas por um fator por tipo de trabalho, calibrado em estudos públicos. Dois cenários: conservador e central. Parâmetros editáveis nesta página.</p></li>
+      </ol>
+      <div>
+        <div class="scope">
+          <h4>Escopo da base</h4>
+          <div class="bar" aria-hidden="true"><span id="scope-asc" style="background:#0092AB"></span><span id="scope-other" style="background:#B7C0C7"></span></div>
+          <div class="legend"><span><i style="background:#0092AB"></i>Ascenty/TOTVS: <span data-kpi="obsAsc"></span> registros (<span data-kpi="ascShare"></span>)</span><span><i style="background:#B7C0C7"></i>Fora do escopo: <span data-kpi="otherShare"></span></span></div>
+          <small>Registros fora do escopo (projetos pessoais e estudos) foram excluídos de todas as métricas seguintes.</small>
+        </div>
+        <div class="scope" style="margin-top:20px">
+          <h4>Tipos de trabalho classificados na captura</h4>
+          <p style="font-size:.95rem;color:var(--ink-2);margin:0">Descoberta e leitura de código · Novas funcionalidades · Alterações e ajustes · Correção de bugs · Refatoração · Decisões e planejamento. Além disso, <span data-kpi="summariesAsc"></span> resumos de sessão com pedido, aprendizados, entregas e próximos passos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Linha do tempo -->
+<section class="slide" id="tempo">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>A adoção cresceu mês a mês e atingiu o pico em agosto</h2>
+    <p class="lede">Registros de trabalho e horas ativas com IA por mês. A curva acompanha as frentes de migração Fortinet, Citrix DaaS e NSX-T.</p>
+    <div class="two">
+      <div class="chart-card">
+        <header><h3>Registros de trabalho por mês</h3><button class="toggle" type="button" data-target="table-monthly-wrap">Ver tabela</button></header>
+        <p class="sub">Escopo Ascenty, 2026</p>
+        <div class="chart" id="chart-monthly"></div>
+      </div>
+      <div class="chart-card">
+        <header><h3>Horas ativas com IA por mês</h3></header>
+        <p class="sub">Teto de 30 minutos de inatividade entre registros</p>
+        <div class="chart" id="chart-hours"></div>
+      </div>
+    </div>
+    <div class="table-wrap" id="table-monthly-wrap" hidden><div id="table-monthly"></div></div>
+  </div>
+</section>
+
+<!-- 5. Tipos -->
+<section class="slide plane" id="tipos">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Um terço do trabalho assistido foi ler e entender código existente</h2>
+    <p class="lede">A IA escreve, mas sempre depois de ler. Em uma plataforma de ~200 módulos com convenções próprias, a leitura é o gargalo humano.</p>
+    <div class="two">
+      <div class="chart-card">
+        <header><h3>Registros por tipo de trabalho</h3><button class="toggle" type="button" data-target="table-types-wrap">Ver tabela</button></header>
+        <p class="sub">Escopo Ascenty, março a setembro de 2026</p>
+        <div class="chart" id="chart-types"></div>
+        <div class="table-wrap" id="table-types-wrap" hidden><div id="table-types"></div></div>
+      </div>
+      <div class="takeaways" style="grid-template-columns:1fr">
+        <div><h3>Descoberta</h3><p>Onboarding em repositórios desconhecidos, mapeamento de cadeias AMQP entre serviços, leitura de SDKs de fornecedores (Fortinet, NSX-T, vSphere, NetScaler).</p></div>
+        <div><h3>Alterações e funcionalidades</h3><p>Quase metade dos registros. Inclui handlers de worker, DTOs compartilhados, configurações de fila e ferramentas internas.</p></div>
+        <div><h3>Decisões e planejamento</h3><p>Planos de execução, registros de decisão arquitetural e backlogs Jira gerados a partir do código real, não de suposições.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Projetos -->
+<section class="slide" id="projetos">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Três frentes concentram o uso: migração Fortinet, api-nemesis e Citrix DaaS</h2>
+    <p class="lede">Horas ativas com IA por repositório. As três primeiras são projetos de migração e especificação, onde a leitura de código legado e de fornecedores pesa mais.</p>
+    <div class="chart-card">
+      <header><h3>Horas ativas com IA por projeto (12 maiores)</h3><button class="toggle" type="button" data-target="table-projects-wrap">Ver tabela</button></header>
+      <p class="sub">Em destaque, os três projetos com maior uso</p>
+      <div class="chart" id="chart-projects"></div>
+      <div class="table-wrap" id="table-projects-wrap" hidden><div id="table-projects"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Comparativo -->
+<section class="slide plane" id="comparativo">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Com IA e sem IA: o mesmo trabalho, duas contas</h2>
+    <p class="lede">As horas com IA foram medidas. As horas sem IA são estimadas multiplicando cada tipo de trabalho por um fator calibrado em estudos públicos. Escolha o cenário.</p>
+    <div class="scenario no-print" role="group" aria-label="Cenário de estimativa">
+      <button type="button" data-scenario="conservative" aria-pressed="false">Conservador</button>
+      <button type="button" data-scenario="central" aria-pressed="true">Central</button>
+    </div>
+    <div class="compare-head">
+      <div class="stat"><div class="label">Com IA (medido)</div><div class="value"><span id="cmp-with"></span><small>horas</small></div></div>
+      <div class="stat"><div class="label">Sem IA (estimado)</div><div class="value"><span id="cmp-without"></span><small>horas</small></div></div>
+      <div class="stat accent"><div class="label">Diferença</div><div class="value"><span id="cmp-saved"></span><small>horas · <span id="cmp-days"></span> dias úteis · fator <span id="cmp-factor"></span></small></div></div>
+    </div>
+    <div class="chart-card">
+      <header><h3>Horas por tipo de trabalho</h3><button class="toggle" type="button" data-target="table-compare-wrap">Ver tabela</button></header>
+      <div class="legend"><span><i style="background:#0092AB"></i>Com IA (medido)</span><span><i style="background:#B7C0C7"></i>Sem IA (estimado)</span></div>
+      <div class="chart" id="chart-compare"></div>
+      <div class="table-wrap" id="table-compare-wrap" hidden><div id="table-compare"></div></div>
+      <p class="assump">Fatores por tipo (conservador / central): descoberta 2,0 / 3,0 · correção de bugs 1,5 / 2,0 · funcionalidades e refatoração 1,4 / 1,8 · alterações 1,3 / 1,6 · decisões 1,2 / 1,5. Referências: Peng et al. 2023 (55,8% mais rápido em experimento controlado), McKinsey 2023 (20% a 45%), Google 2024 (cerca de 21%), METR 2025 (alerta: 19% mais lento em repositórios familiares).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Casos -->
+<section class="slide" id="casos">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>O que foi entregue: seis frentes com resultado verificável</h2>
+    <p class="lede">Entregas extraídas dos resumos de sessão. Cada cartão traz contagem de registros, horas ativas e arquivos alterados no repositório correspondente.</p>
+    <div class="cases" id="cases"></div>
+  </div>
+</section>
+
+<!-- 9. Qualidade -->
+<section class="slide plane" id="qualidade">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Ganho não é só velocidade: testes, documentação e segurança entraram no fluxo</h2>
+    <p class="lede">Comparação qualitativa entre o processo tradicional e o assistido, com a evidência observada nas sessões.</p>
+    <div style="overflow-x:auto">
+      <table class="qual">
+        <thead><tr><th>Dimensão</th><th>Sem IA</th><th>Com IA (observado)</th></tr></thead>
+        <tbody id="qual-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 10. ROI -->
+<section class="slide" id="roi">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Retorno: o custo da ferramenta é uma fração do valor das horas liberadas</h2>
+    <p class="lede">Simule ao vivo. Os controles alteram custo de engenharia, fator de ganho e custo mensal da ferramenta. O período é de seis meses.</p>
+    <div class="roi">
+      <div class="controls no-print">
+        <label><div class="row"><span>Custo da hora de engenharia</span><span id="roi-rate-v"></span></div><input type="range" id="roi-rate" min="60" max="400" step="10" value="150"><small>Custo total (salário, encargos, benefícios). Ajuste ao valor interno.</small></label>
+        <label><div class="row"><span>Fator de ganho (sem IA ÷ com IA)</span><span id="roi-factor-v"></span></div><input type="range" id="roi-factor" min="1.1" max="3.5" step="0.01" value="2.2"><small>Padrão: fator do cenário selecionado acima. 1,0 significa nenhum ganho.</small></label>
+        <label><div class="row"><span>Custo mensal da ferramenta</span><span id="roi-tool-v"></span></div><input type="range" id="roi-tool" min="0" max="5000" step="100" value="1200"><small>Assinatura por engenheiro. Ajuste ao contrato vigente.</small></label>
+      </div>
+      <div>
+        <div class="roi-out">
+          <div class="stat"><div class="label">Horas liberadas</div><div class="value"><span id="roi-hours"></span><small>h · <span id="roi-days"></span> dias úteis</small></div></div>
+          <div class="stat"><div class="label">Valor equivalente</div><div class="value" id="roi-value"></div></div>
+          <div class="stat"><div class="label">Custo da ferramenta no período</div><div class="value" id="roi-cost"></div></div>
+          <div class="stat accent"><div class="label">Retorno sobre o custo</div><div class="value" id="roi-return"></div></div>
+        </div>
+        <p class="roi-note">A conta considera apenas horas de um engenheiro. Não inclui redução de retrabalho, ganhos em onboarding de novos integrantes nem o valor de testes e documentação que antes não cabiam na agenda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. Limites -->
+<section class="slide navy" id="limites">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Limites desta análise e cuidados recomendados</h2>
+    <p class="lede">Um relatório honesto vale mais do que um número redondo. Estes são os pontos que a diretoria deve ponderar.</p>
+    <div class="cards" id="limits"></div>
+  </div>
+</section>
+
+<!-- 12. Recomendações -->
+<section class="slide navy" id="recomendacoes">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Próximos passos propostos</h2>
+    <p class="lede">Transformar a experiência de um engenheiro em prática de time, com medição antes e depois.</p>
+    <ol class="recs" id="recs"></ol>
+  </div>
+</section>
+
+<!-- 13. Referências -->
+<section class="slide" id="referencias">
+  <div class="inner">
+    <div class="rule"></div>
+    <h2>Referências e fonte dos dados</h2>
+    <ol class="refs" id="refs"></ol>
+  </div>
+</section>
+
+</main>
+
+<footer class="site no-print">
+  <span>TOTVS · Plataforma Ascenty · Relatório de uso de IA · <span data-kpi="generatedAt"></span></span>
+  <span>Versão web com gráficos interativos. Exportações: PDF (impressão do navegador) e Google Slides (.pptx com gráficos editáveis).</span>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="box">
+    <h3 id="modal-title">Apresentação gerada</h3>
+    <p style="color:var(--ink-2)">O arquivo <strong>TOTVS-Ascenty-Uso-de-IA.pptx</strong> foi salvo na sua pasta de downloads. Para abrir no Google Slides:</p>
+    <ol>
+      <li>Abra o Google Slides e crie uma apresentação em branco.</li>
+      <li>No menu, escolha <strong>Arquivo › Importar slides</strong> e, na aba <strong>Upload</strong>, selecione o arquivo baixado.</li>
+      <li>Marque todos os slides e confirme. Gráficos e tabelas permanecem editáveis.</li>
+    </ol>
+    <p style="color:var(--muted);font-size:.9rem">Alternativa: envie o .pptx para o Google Drive e abra com o Google Slides.</p>
+    <div class="actions">
+      <button class="btn ghost" type="button" data-close style="color:var(--ink);border-color:var(--line)">Fechar</button>
+      <a class="btn light" href="https://slides.new" target="_blank" rel="noopener">Abrir Google Slides</a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js" defer></script>
+<script src="assets/export.js" defer></script>
+</body>
+</html>
